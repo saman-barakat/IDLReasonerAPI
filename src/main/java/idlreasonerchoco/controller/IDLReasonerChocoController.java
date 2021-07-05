@@ -19,7 +19,7 @@ public class IDLReasonerChocoController {
     @PostMapping("/generateRandomRequest")
     public ResponseEntity<Map<String, String>> generateRandomRequest(@RequestBody String oasSpec, @RequestParam(name = OPERATION_PATH) String operationPath,
                                                    @RequestParam(name = OPERATION_TYPE) String operationType) throws IDLException {
-        Analyzer analyzer = new Analyzer("oas", oasSpec, operationPath, operationType, false, null);
+        Analyzer analyzer = new Analyzer("oas", oasSpec, operationPath, operationType, false);
         Map<String, String> response = analyzer.getRandomRequest();
         return ResponseEntity.ok(response);
     }
@@ -49,7 +49,7 @@ public class IDLReasonerChocoController {
     @PostMapping("/isConsistent")
     public ResponseEntity<OperationAnalysisResponse> isConsistent(@RequestBody String oasSpec, @RequestParam(name = OPERATION_PATH) String operationPath,
                                                                   @RequestParam(name = OPERATION_TYPE) String operationType) throws IDLException {
-        Analyzer analyzer = new Analyzer("oas", oasSpec, operationPath, operationType, false, null);
+        Analyzer analyzer = new Analyzer("oas", oasSpec, operationPath, operationType, false);
         OperationAnalysisResponse response = new OperationAnalysisResponse();
         response.setConsistent(analyzer.isConsistent());
         return ResponseEntity.ok(response);
@@ -59,7 +59,7 @@ public class IDLReasonerChocoController {
     public ResponseEntity<OperationAnalysisResponse> isDeadParameter(@RequestBody String oasSpec, @RequestParam(name = OPERATION_PATH) String operationPath,
                                                                      @RequestParam(name = OPERATION_TYPE) String operationType,
                                                                      @RequestParam(name = PARAMETER) String parameter) throws IDLException {
-        Analyzer analyzer = new Analyzer("oas", oasSpec, operationPath, operationType, false, null);
+        Analyzer analyzer = new Analyzer("oas", oasSpec, operationPath, operationType, false);
         OperationAnalysisResponse response = new OperationAnalysisResponse();
         response.setDeadParameter(analyzer.isDeadParameter(parameter));
         return ResponseEntity.ok(response);
@@ -69,7 +69,7 @@ public class IDLReasonerChocoController {
     public ResponseEntity<OperationAnalysisResponse> isFalseOptional(@RequestBody String oasSpec, @RequestParam(name = OPERATION_PATH) String operationPath,
                                                                      @RequestParam(name = OPERATION_TYPE) String operationType,
                                                                      @RequestParam(name = PARAMETER) String parameter) throws IDLException {
-        Analyzer analyzer = new Analyzer("oas", oasSpec, operationPath, operationType, false, null);
+        Analyzer analyzer = new Analyzer("oas", oasSpec, operationPath, operationType, false);
         OperationAnalysisResponse response = new OperationAnalysisResponse();
         response.setFalseOptional(analyzer.isFalseOptional(parameter));
         return ResponseEntity.ok(response);
@@ -78,7 +78,7 @@ public class IDLReasonerChocoController {
     @PostMapping("/isValidSpecification")
     public ResponseEntity<OperationAnalysisResponse> isValidIDL(@RequestBody String oasSpec, @RequestParam(name = OPERATION_PATH) String operationPath,
                                                                 @RequestParam(name = OPERATION_TYPE) String operationType) throws IDLException {
-        Analyzer analyzer = new Analyzer("oas", oasSpec, operationPath, operationType, false, null);
+        Analyzer analyzer = new Analyzer("oas", oasSpec, operationPath, operationType, false);
         OperationAnalysisResponse response = new OperationAnalysisResponse();
         response.setValid(analyzer.isValidIDL());
         return ResponseEntity.ok(response);
@@ -88,7 +88,7 @@ public class IDLReasonerChocoController {
         String operationPath = requestParams.get(OPERATION_PATH);
         String operationType = requestParams.get(OPERATION_TYPE);
 
-        Analyzer analyzer = new Analyzer("oas", oasSpec, operationPath, operationType, false, null);
+        Analyzer analyzer = new Analyzer("oas", oasSpec, operationPath, operationType, false);
         requestParams.remove(OPERATION_PATH);
         requestParams.remove(OPERATION_TYPE);
         return analyzer;
