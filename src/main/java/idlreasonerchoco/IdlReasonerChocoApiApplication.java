@@ -1,4 +1,4 @@
-package idlreasonerchoco.IDLReasonerchocoapi;
+package idlreasonerchoco;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
