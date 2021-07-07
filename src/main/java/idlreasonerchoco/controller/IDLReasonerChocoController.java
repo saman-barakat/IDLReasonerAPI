@@ -16,11 +16,19 @@ public class IDLReasonerChocoController {
     private static final String OPERATION_TYPE = "operationType";
     private static final String PARAMETER = "parameter";
 
-    @PostMapping("/generateRandomRequest")
-    public ResponseEntity<Map<String, String>> generateRandomRequest(@RequestBody String oasSpec, @RequestParam(name = OPERATION_PATH) String operationPath,
+    @PostMapping("/generateRandomValidRequest")
+    public ResponseEntity<Map<String, String>> generateRandomValidRequest(@RequestBody String oasSpec, @RequestParam(name = OPERATION_PATH) String operationPath,
                                                    @RequestParam(name = OPERATION_TYPE) String operationType) throws IDLException {
         Analyzer analyzer = new Analyzer("oas", oasSpec, operationPath, operationType, false);
-        Map<String, String> response = analyzer.getRandomRequest();
+        Map<String, String> response = analyzer.getRandomValidRequest();
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/generateRandomInvalidRequest")
+    public ResponseEntity<Map<String, String>> generateRandomInvalidRequest(@RequestBody String oasSpec, @RequestParam(name = OPERATION_PATH) String operationPath,
+                                                                          @RequestParam(name = OPERATION_TYPE) String operationType) throws IDLException {
+        Analyzer analyzer = new Analyzer("oas", oasSpec, operationPath, operationType, false);
+        Map<String, String> response = analyzer.getRandomInvalidRequest();
         return ResponseEntity.ok(response);
     }
 
