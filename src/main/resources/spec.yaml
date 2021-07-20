@@ -48,11 +48,13 @@ paths:
       parameters:
         - name: operationPath
           in: query
+          description: The path of the operation to be checked
           required: true
           schema:
             type: string
         - name: operationType
           in: query
+          description: The HTTP method of the operation to be checked
           required: true
           schema:
             type: string
@@ -75,17 +77,40 @@ paths:
                 $ref: '#/components/schemas/ValidResponse'
   /isValidRequest:
     get:
+      summary: Checks if a request is valid
+      description: Checks if a request satisfies all the dependencies of an IDL specification
       tags:
         - Check valid request
       operationId: isValidRequestGet
       parameters:
-        - name: requestParams
+        - name: specificationUrl
           in: query
+          description: The URL that provides the API specification
           required: true
           schema:
+            type: string
+        - name: operationPath
+          in: query
+          description: The operation's path of the request to be checked
+          required: true
+          schema:
+            type: string
+        - name: operationType
+          in: query
+          description: The operation's HTTP method of the request to be checked
+          required: true
+          schema:
+            type: string
+        - name: request
+          in: query
+          description: The request to be checked
+          required: true
+          style: deepObject
+          explode: true
+          allowReserved: false
+          schema:
             type: object
-            additionalProperties:
-              type: string
+            additionalProperties: true
       responses:
         '200':
           description: OK
@@ -94,22 +119,43 @@ paths:
               schema:
                 $ref: '#/components/schemas/ValidResponse'
     post:
+      summary: Checks if a request is valid
+      description: Checks if a request satisfies all the dependencies of an IDL specification
       tags:
         - Check valid request
       operationId: isValidRequest
       parameters:
-        - name: requestParams
+        - name: operationPath
           in: query
+          description: The operation's path of the request to be checked
           required: true
           schema:
+            type: string
+        - name: operationType
+          in: query
+          description: The operation's HTTP method of the request to be checked
+          required: true
+          schema:
+            type: string
+        - name: request
+          in: query
+          description: The request to be checked
+          required: true
+          style: deepObject
+          explode: true
+          allowReserved: false
+          schema:
             type: object
-            additionalProperties:
-              type: string
+            additionalProperties: true
       requestBody:
+        description: An OpenAPI 3.0 or Swagger 2.0 specification
         content:
           application/json:
             schema:
-              type: string
+              type: object
+          application/x-yaml:
+            schema:
+              type: object
         required: true
       responses:
         '200':
@@ -120,17 +166,40 @@ paths:
                 $ref: '#/components/schemas/ValidResponse'
   /isValidPartialRequest:
     get:
+      summary: Checks if a request is partially valid
+      description: Checks if the request can be extended with new parameters to become a valid one
       tags:
         - Check valid partial request
       operationId: isValidPartialRequestGet
       parameters:
-        - name: requestParams
+        - name: specificationUrl
           in: query
+          description: The URL that provides the API specification
           required: true
           schema:
+            type: string
+        - name: operationPath
+          in: query
+          description: The operation's path of the request to be checked
+          required: true
+          schema:
+            type: string
+        - name: operationType
+          in: query
+          description: The operation's HTTP method of the request to be checked
+          required: true
+          schema:
+            type: string
+        - name: request
+          in: query
+          description: The request to be checked
+          required: true
+          style: deepObject
+          explode: true
+          allowReserved: false
+          schema:
             type: object
-            additionalProperties:
-              type: string
+            additionalProperties: true
       responses:
         '200':
           description: OK
@@ -139,22 +208,43 @@ paths:
               schema:
                 $ref: '#/components/schemas/ValidResponse'
     post:
+      summary: Checks if a request is partially valid
+      description: Checks if the request can be extended with new parameters to become a valid one
       tags:
         - Check valid partial request
       operationId: isValidPartialRequest
       parameters:
-        - name: requestParams
+        - name: operationPath
           in: query
+          description: The operation's path of the request to be checked
           required: true
           schema:
+            type: string
+        - name: operationType
+          in: query
+          description: The operation's HTTP method of the request to be checked
+          required: true
+          schema:
+            type: string
+        - name: request
+          in: query
+          description: The request to be checked
+          required: true
+          style: deepObject
+          explode: true
+          allowReserved: false
+          schema:
             type: object
-            additionalProperties:
-              type: string
+            additionalProperties: true
       requestBody:
+        description: An OpenAPI 3.0 or Swagger 2.0 specification
         content:
           application/json:
             schema:
-              type: string
+              type: object
+          application/x-yaml:
+            schema:
+              type: object
         required: true
       responses:
         '200':
