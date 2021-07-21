@@ -4,6 +4,7 @@ import idlreasonerchoco.analyzer.Analyzer;
 import idlreasonerchoco.analyzer.OASAnalyzer;
 import idlreasonerchoco.configuration.IDLException;
 import idlreasonerchoco.model.OperationAnalysisResponse;
+import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,8 +29,10 @@ public class IDLReasonerChocoController {
     }
 
     @GetMapping("/generateRandomValidRequest")
-    public ResponseEntity<Map<String, String>> generateRandomValidRequestGet(@RequestParam(name = SPEC_URL) String oasSpecUrl, @RequestParam(name = OPERATION_PATH) String operationPath,
-                                                                             @RequestParam(name = OPERATION_TYPE) String operationType) throws IDLException {
+    public ResponseEntity<Map<String, String>> generateRandomValidRequestGet(@RequestParam(name = SPEC_URL) String oasSpecUrl, @RequestParam(name = OPERATION_PATH) String operationPath, @RequestParam(name = OPERATION_TYPE) String operationType) throws IDLException {
+        if(isUrlInvalid(oasSpecUrl)) {
+            return ResponseEntity.badRequest().build();
+        }
         Analyzer analyzer = new OASAnalyzer("oas", oasSpecUrl, operationPath, operationType, false);
         Map<String, String> response = analyzer.getRandomValidRequest();
         return ResponseEntity.ok(response);
@@ -46,6 +49,9 @@ public class IDLReasonerChocoController {
     @GetMapping("/generateRandomInvalidRequest")
     public ResponseEntity<Map<String, String>> generateRandomInvalidRequestGet(@RequestParam(name = SPEC_URL) String oasSpecUrl, @RequestParam(name = OPERATION_PATH) String operationPath,
                                                                                @RequestParam(name = OPERATION_TYPE) String operationType) throws IDLException {
+        if(isUrlInvalid(oasSpecUrl)) {
+            return ResponseEntity.badRequest().build();
+        }
         Analyzer analyzer = new OASAnalyzer("oas", oasSpecUrl, operationPath, operationType, false);
         Map<String, String> response = analyzer.getRandomInvalidRequest();
         return ResponseEntity.ok(response);
@@ -86,6 +92,10 @@ public class IDLReasonerChocoController {
 
     @GetMapping("/isValidPartialRequest")
     public ResponseEntity<OperationAnalysisResponse> isValidPartialRequestGet(@RequestParam Map<String, String> requestParams) throws IDLException {
+        if (!requestParams.containsKey(SPEC_URL) || isUrlInvalid(requestParams.get(SPEC_URL))) {
+            return ResponseEntity.badRequest().build();
+        }
+
         OperationAnalysisResponse response = isValidRequest(null, requestParams, false, true);
 
         if (response == null) {
@@ -107,6 +117,10 @@ public class IDLReasonerChocoController {
     @GetMapping("/isConsistent")
     public ResponseEntity<OperationAnalysisResponse> isConsistentGet(@RequestParam(name = SPEC_URL) String oasSpecUrl, @RequestParam(name = OPERATION_PATH) String operationPath,
                                                                      @RequestParam(name = OPERATION_TYPE) String operationType) throws IDLException {
+        if(isUrlInvalid(oasSpecUrl)) {
+            return ResponseEntity.badRequest().build();
+        }
+
         Analyzer analyzer = new OASAnalyzer("oas", oasSpecUrl, operationPath, operationType, false);
         OperationAnalysisResponse response = new OperationAnalysisResponse();
         response.setConsistent(analyzer.isConsistent());
@@ -127,6 +141,10 @@ public class IDLReasonerChocoController {
     public ResponseEntity<OperationAnalysisResponse> isDeadParameterGet(@RequestParam(name = SPEC_URL) String oasSpecUrl, @RequestParam(name = OPERATION_PATH) String operationPath,
                                                                         @RequestParam(name = OPERATION_TYPE) String operationType,
                                                                         @RequestParam(name = PARAMETER) String parameter) throws IDLException {
+        if(isUrlInvalid(oasSpecUrl)) {
+            return ResponseEntity.badRequest().build();
+        }
+
         Analyzer analyzer = new OASAnalyzer("oas", oasSpecUrl, operationPath, operationType, false);
         OperationAnalysisResponse response = new OperationAnalysisResponse();
         response.setDeadParameter(analyzer.isDeadParameter(parameter));
@@ -147,6 +165,10 @@ public class IDLReasonerChocoController {
     public ResponseEntity<OperationAnalysisResponse> isFalseOptionalGet(@RequestParam(name = SPEC_URL) String oasSpecUrl, @RequestParam(name = OPERATION_PATH) String operationPath,
                                                                         @RequestParam(name = OPERATION_TYPE) String operationType,
                                                                         @RequestParam(name = PARAMETER) String parameter) throws IDLException {
+        if(isUrlInvalid(oasSpecUrl)) {
+            return ResponseEntity.badRequest().build();
+        }
+
         Analyzer analyzer = new OASAnalyzer("oas", oasSpecUrl, operationPath, operationType, false);
         OperationAnalysisResponse response = new OperationAnalysisResponse();
         response.setFalseOptional(analyzer.isFalseOptional(parameter));
@@ -165,6 +187,10 @@ public class IDLReasonerChocoController {
     @GetMapping("/isValidSpecification")
     public ResponseEntity<OperationAnalysisResponse> isValidIDLGet(@RequestParam(name = SPEC_URL) String oasSpecUrl, @RequestParam(name = OPERATION_PATH) String operationPath,
                                                                    @RequestParam(name = OPERATION_TYPE) String operationType) throws IDLException {
+        if(isUrlInvalid(oasSpecUrl)) {
+            return ResponseEntity.badRequest().build();
+        }
+
         Analyzer analyzer = new OASAnalyzer("oas", oasSpecUrl, operationPath, operationType, false);
         OperationAnalysisResponse response = new OperationAnalysisResponse();
         response.setValid(analyzer.isValidIDL());
@@ -191,5 +217,10 @@ public class IDLReasonerChocoController {
         }
 
         return response;
+    }
+
+    private boolean isUrlInvalid(String oasSpecUrl) {
+        UrlValidator validator = new UrlValidator(UrlValidator.ALLOW_LOCAL_URLS + UrlValidator.ALLOW_2_SLASHES + UrlValidator.ALLOW_ALL_SCHEMES);
+        return !validator.isValid(oasSpecUrl);
     }
 }

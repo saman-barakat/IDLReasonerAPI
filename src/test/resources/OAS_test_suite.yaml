@@ -1,0 +1,1194 @@
+swagger: "2.0"
+info:
+  description: "This is a sample server"
+  version: "1.0.0"
+  title: "Swagger Example"
+host: "localhost:8080"
+basePath: "/api"
+schemes:
+  - "http"
+paths:
+  /noParams:
+    get:
+      responses:
+        default:
+          description: "Default"
+  /oneParamBoolean:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: false
+          type: "boolean"
+      responses:
+        default:
+          description: "Default"
+  /oneParamString:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: true
+          type: "string"
+      responses:
+        default:
+          description: "Default"
+  /oneParamInt:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: false
+          type: "integer"
+      responses:
+        default:
+          description: "Default"
+  /oneParamEnumString:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: false
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+      responses:
+        default:
+          description: "Default"
+  /oneParamEnumInt:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: false
+          type: "integer"
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+      responses:
+        default:
+          description: "Default"
+  /oneDependencyRequires:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: false
+          type: "boolean"
+        - name: "p2"
+          in: "query"
+          required: false
+          type: "string"
+        - name: "p3"
+          in: "query"
+          required: false
+          type: "integer"
+        - name: "p4"
+          in: "query"
+          required: false
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+        - name: "p5"
+          in: "query"
+          required: false
+          type: "integer"
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+      x-dependencies:
+        - IF p1 THEN p2;
+      responses:
+        default:
+          description: "Default"
+  /oneDependencyOr:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: false
+          type: "boolean"
+        - name: "p2"
+          in: "query"
+          required: false
+          type: "string"
+        - name: "p3"
+          in: "query"
+          required: false
+          type: "integer"
+        - name: "p4"
+          in: "query"
+          required: false
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+        - name: "p5"
+          in: "query"
+          required: false
+          type: "integer"
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+      x-dependencies:
+        - Or(p1, p2);
+      responses:
+        default:
+          description: "Default"
+  /oneDependencyOnlyOne:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: false
+          type: "boolean"
+        - name: "p2"
+          in: "query"
+          required: false
+          type: "string"
+        - name: "p3"
+          in: "query"
+          required: false
+          type: "integer"
+        - name: "p4"
+          in: "query"
+          required: false
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+        - name: "p5"
+          in: "query"
+          required: false
+          type: "integer"
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+      x-dependencies:
+        - OnlyOne(p1, p2);
+      responses:
+        default:
+          description: "Default"
+  /oneDependencyAllOrNone:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: false
+          type: "boolean"
+        - name: "p2"
+          in: "query"
+          required: false
+          type: "string"
+        - name: "p3"
+          in: "query"
+          required: false
+          type: "integer"
+        - name: "p4"
+          in: "query"
+          required: false
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+        - name: "p5"
+          in: "query"
+          required: false
+          type: "integer"
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+      x-dependencies:
+        - AllOrNone(p1, p2);
+      responses:
+        default:
+          description: "Default"
+  /oneDependencyZeroOrOne:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: false
+          type: "boolean"
+        - name: "p2"
+          in: "query"
+          required: false
+          type: "string"
+        - name: "p3"
+          in: "query"
+          required: false
+          type: "integer"
+        - name: "p4"
+          in: "query"
+          required: false
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+        - name: "p5"
+          in: "query"
+          required: false
+          type: "integer"
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+      x-dependencies:
+        - ZeroOrOne(p1, p2);
+      responses:
+        default:
+          description: "Default"
+  /oneDependencyArithRel:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: false
+          type: "boolean"
+        - name: "p2"
+          in: "query"
+          required: false
+          type: "string"
+        - name: "p3"
+          in: "query"
+          required: false
+          type: "integer"
+        - name: "p4"
+          in: "query"
+          required: false
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+        - name: "p5"
+          in: "query"
+          required: false
+          type: "integer"
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+      x-dependencies:
+        - p3 <= p5;
+      responses:
+        default:
+          description: "Default"
+  /oneDependencyComplex:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: false
+          type: "boolean"
+        - name: "p2"
+          in: "query"
+          required: false
+          type: "string"
+        - name: "p3"
+          in: "query"
+          required: false
+          type: "integer"
+        - name: "p4"
+          in: "query"
+          required: false
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+        - name: "p5"
+          in: "query"
+          required: false
+          type: "integer"
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+      x-dependencies:
+        - IF p1 THEN OnlyOne(p2, p3);
+      responses:
+        default:
+          description: "Default"
+  /oneDependencyEnumParams:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: false
+          type: "boolean"
+        - name: "p2"
+          in: "query"
+          required: false
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+        - name: "p3"
+          in: "query"
+          required: true
+          type: "integer"
+          enum:
+            - 1
+            - 2
+      responses:
+        default:
+          description: "Default"
+  /oneDependencyArithRelEnumParams:
+    get:
+      parameters:
+        - name: "p3"
+          in: "query"
+          required: false
+          type: "integer"
+          enum:
+            - 1
+            - 2
+            - 3
+        - name: "p5"
+          in: "query"
+          required: true
+          type: "integer"
+          enum:
+            - 1
+            - 2
+            - 3
+      responses:
+        default:
+          description: "Default"
+  /oneDependencyComplexEnumParams:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: false
+          type: "boolean"
+        - name: "p2"
+          in: "query"
+          required: false
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+        - name: "p3"
+          in: "query"
+          required: false
+          type: "integer"
+          enum:
+            - 1
+            - 2
+      responses:
+        default:
+          description: "Default"
+  /combinatorial1:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: true
+          type: "string"
+        - name: "p2"
+          in: "query"
+          required: true
+          type: "string"
+        - name: "p3"
+          in: "query"
+          required: true
+          type: "string"
+        - name: "p4"
+          in: "query"
+          required: true
+          type: "string"
+        - name: "p5"
+          in: "query"
+          required: true
+          type: "string"
+      x-dependencies:
+        - Or(p1=='value1', p2=='value1');
+        - OnlyOne(p2=='value2', p3=='value2');
+        - AllOrNone(p2=='value3', p3=='value4');
+        - ZeroOrOne(p4=='value5', p5=='value6');
+        - p1==p5;
+      responses:
+        default:
+          description: "Default"
+  /combinatorial2:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: false
+          type: "boolean"
+        - name: "p2"
+          in: "query"
+          required: false
+          type: "integer"
+        - name: "p3"
+          in: "query"
+          required: false
+          type: "integer"
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+        - name: "p4"
+          in: "query"
+          required: false
+          type: "integer"
+        - name: "p5"
+          in: "query"
+          required: false
+          type: "integer"
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+        - name: "p6"
+          in: "query"
+          required: false
+          type: "boolean"
+        - name: "p7"
+          in: "query"
+          required: false
+          type: "integer"
+        - name: "p8"
+          in: "query"
+          required: false
+          type: "integer"
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+        - name: "p9"
+          in: "query"
+          required: false
+          type: "integer"
+        - name: "p10"
+          in: "query"
+          required: false
+          type: "integer"
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+      x-dependencies:
+        - IF p1 THEN NOT p2;
+        - IF p2 THEN p3==5;
+        - IF NOT p1 THEN p4;
+        - IF p4 THEN p5==p7; // Complex with 2 types
+        - IF NOT (p4 OR p6) THEN p5 AND p7;
+        - OnlyOne(Or(p7, p8), Or(p9, p10));
+        - IF p7 OR p8 THEN p9 OR p10;
+        - IF p1==true THEN NOT (p2==3 OR p4==4) AND p7;
+        - IF p3 THEN AllOrNone(p1, p2);
+        - IF p8 THEN p9;
+      responses:
+        default:
+          description: "Default"
+  /combinatorial3:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: false
+          type: "boolean"
+        - name: "p2"
+          in: "query"
+          required: false
+          type: "string"
+        - name: "p3"
+          in: "query"
+          required: false
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+        - name: "p4"
+          in: "query"
+          required: false
+          type: "integer"
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+        - name: "p5"
+          in: "query"
+          required: false
+          type: "integer"
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+      x-dependencies:
+        - Or(p1, p2, p3, p4, p5);
+        - OnlyOne(p1, p2);
+        - p4>=p5;
+        - Or(p1==true, p4==1 OR p2);
+        - OnlyOne(p3, p5);
+        - p2!=p3;
+        - p2==p3;
+        - OnlyOne(p1 AND p3, p4 AND p5);
+        - NOT Or(p2=='example', p5==4);
+        - Or(p3=='value1', p4==1);
+      responses:
+        default:
+          description: "Default"
+  /combinatorial4:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: false
+          type: "integer"
+        - name: "p2"
+          in: "query"
+          required: false
+          type: "integer"
+          enum:
+            - 100
+            - 1000
+            - 10000
+            - 100000
+            - 1000000
+        - name: "p3"
+          in: "query"
+          required: false
+          type: "integer"
+          enum:
+            - 100
+            - 1000
+            - 10000
+            - 100000
+            - 1000000
+        - name: "p4"
+          in: "query"
+          required: false
+          type: "integer"
+          enum:
+            - 100
+            - 1000
+            - 10000
+            - 100000
+            - 1000000
+        - name: "p5"
+          in: "query"
+          required: false
+          type: "integer"
+          enum:
+            - 100
+            - 1000
+            - 10000
+            - 100000
+            - 1000000
+        - name: "p6"
+          in: "query"
+          required: false
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+        - name: "p7"
+          in: "query"
+          required: false
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+        - name: "p8"
+          in: "query"
+          required: false
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+        - name: "p9"
+          in: "query"
+          required: false
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+        - name: "p10"
+          in: "query"
+          required: false
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+      responses:
+        default:
+          description: "Default"
+      x-dependencies:
+        - ZeroOrOne(p7 AND p8, p7 AND p8 OR p9=='value5');
+        - AllOrNone(p4 AND p5, p6 AND p7);
+        - NOT ZeroOrOne(p5==1000, p4==10000 OR p3==100000, p2==1000000);
+        - IF p1 AND Or(p2, p3) THEN p1+p2+p4<=999 AND OnlyOne(p6, AllOrNone(p7, p8));
+        - IF NOT (p4==p5 AND ZeroOrOne(p6, p7)) THEN Or(p6=='value1', p7 AND p8=='value3') OR OnlyOne(p1, p3);
+  /combinatorial5:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: true
+          type: "boolean"
+        - name: "p2"
+          in: "query"
+          required: true
+          type: "string"
+        - name: "p3"
+          in: "query"
+          required: true
+          type: "integer"
+        - name: "p4"
+          in: "query"
+          required: true
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+        - name: "p5"
+          in: "query"
+          required: true
+          type: "integer"
+        - name: "p6"
+          in: "query"
+          required: true
+          type: "boolean"
+        - name: "p7"
+          in: "query"
+          required: true
+          type: "string"
+        - name: "p8"
+          in: "query"
+          required: true
+          type: "integer"
+        - name: "p9"
+          in: "query"
+          required: true
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+        - name: "p10"
+          in: "query"
+          required: true
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+      responses:
+        default:
+          description: "Default"
+      x-dependencies:
+        - IF NOT p1==false THEN p2=='something' AND p3==5;
+        - Or(p4=='string 1'|'string 2', p5<-200, p6==true);
+        - ZeroOrOne(p7=='another example', p8>=10);
+        - p3*p5*p8<5;
+        - Or(p1==p6, p4==p7);
+  /combinatorial6:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: true
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+        - name: "p2"
+          in: "query"
+          required: true
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+        - name: "p3"
+          in: "query"
+          required: true
+          type: "integer"
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+        - name: "p4"
+          in: "query"
+          required: true
+          type: "integer"
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+        - name: "p5"
+          in: "query"
+          required: true
+          type: "integer"
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+      responses:
+        default:
+          description: "Default"
+      x-dependencies:
+        - IF p1=='value1' THEN p2=='value2';
+        - IF p3<1 THEN p4>5;
+        - IF NOT (p2<=3 OR p3<=4 OR p2=='value5') AND NOT p1=='value3' THEN p3<=2;
+        - IF p5<=4 THEN NOT p3<4;
+        - AllOrNone(p3==3, p3==3);
+        - AllOrNone(p3 OR p4 OR p4, p1, p2);
+        - AllOrNone(p1=='invalid value', p2=='another invalid value', p5==10);
+        - OnlyOne(p5==1, p5==1);
+        - OnlyOne(p1, p2, p3, p4, p5);
+        - OnlyOne(p1=='value2' AND p5>-1, p3>3);
+  /combinatorial7:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: true
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+        - name: "p2"
+          in: "query"
+          required: false
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+        - name: "p3"
+          in: "query"
+          required: true
+          type: "integer"
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+        - name: "p4"
+          in: "query"
+          required: true
+          type: "integer"
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+        - name: "p5"
+          in: "query"
+          required: false
+          type: "integer"
+      responses:
+        default:
+          description: "Default"
+      x-dependencies:
+        - p1==p2;
+        - p5>p4;
+        - p4>p3;
+        - p3>p5;
+        - p3+p4+p5<=15;
+  /combinatorial8:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: false
+          type: "boolean"
+        - name: "p2"
+          in: "query"
+          required: true
+          type: "boolean"
+        - name: "p3"
+          in: "query"
+          required: false
+          type: "boolean"
+        - name: "p4"
+          in: "query"
+          required: true
+          type: "boolean"
+        - name: "p5"
+          in: "query"
+          required: false
+          type: "boolean"
+        - name: "p6"
+          in: "query"
+          required: true
+          type: "string"
+        - name: "p7"
+          in: "query"
+          required: false
+          type: "string"
+        - name: "p8"
+          in: "query"
+          required: true
+          type: "string"
+        - name: "p9"
+          in: "query"
+          required: false
+          type: "string"
+        - name: "p10"
+          in: "query"
+          required: true
+          type: "string"
+      responses:
+        default:
+          description: "Default"
+      x-dependencies:
+        - IF p2 THEN p4; // Useless/redundant dependency, but valid
+        - IF p1 THEN (p3==true OR (NOT p3)) AND NOT p7 AND p9=='fixed string';
+        - Or(p1, p3, p5 AND p7, p9 AND p1);
+        - NOT Or(p1==true, p2==true, p3==false);
+        - NOT AllOrNone(p7 AND p9, p8=='something', p5 AND p10=='example');
+        - AllOrNone(p1, p5);
+        - NOT ZeroOrOne(p1, p5, p7, p2==false, p6=='example');
+        - ZeroOrOne(p1, p3);
+        - AllOrNone(p6!=p8, p8==p10);
+        - ZeroOrOne(OnlyOne(p5==false, p4==true), OnlyOne(p4, p4==true), OnlyOne(p4==true, p6));
+  /combinatorial9:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: false
+          type: "integer"
+        - name: "p2"
+          in: "query"
+          required: true
+          type: "integer"
+        - name: "p3"
+          in: "query"
+          required: false
+          type: "integer"
+        - name: "p4"
+          in: "query"
+          required: true
+          type: "string"
+        - name: "p5"
+          in: "query"
+          required: false
+          type: "string"
+        - name: "p6"
+          in: "query"
+          required: true
+          type: "string"
+        - name: "p7"
+          in: "query"
+          required: false
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+        - name: "p8"
+          in: "query"
+          required: true
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+        - name: "p9"
+          in: "query"
+          required: false
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+        - name: "p10"
+          in: "query"
+          required: true
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+      responses:
+        default:
+          description: "Default"
+      x-dependencies:
+        - IF p1 THEN p3==10 OR p5;
+        - p3 > p1;
+        - p2 <= p1;
+        - OnlyOne(p5, p7 OR p9);
+        - IF p2 THEN p7;
+  /combinatorial10:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: true
+          type: "boolean"
+        - name: "p2"
+          in: "query"
+          required: true
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+        - name: "p3"
+          in: "query"
+          required: true
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+            - "value3"
+            - "value4"
+            - "value5"
+        - name: "p4"
+          in: "query"
+          required: true
+          type: "integer"
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+        - name: "p5"
+          in: "query"
+          required: true
+          type: "integer"
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+      responses:
+        default:
+          description: "Default"
+      x-dependencies:
+        - Or(p1==true, p2=='value1');
+        - Or(p2=='value2', p4>=4);
+        - OnlyOne(p2=='value3', p3=='value4');
+        - OnlyOne(p4<=3, p5>=3);
+        - ZeroOrOne(p1==false AND p2=='value5', p4==1, p5==2);
+        - NOT ZeroOrOne(p1==true, p4>1, p5>2);
+        - p4+p5<=5;
+        - p4*p5>=4;
+        - IF Or(p1==false, p4>3) OR NOT ZeroOrOne(p2=='value2', p3=='value5') THEN p2!=p3 AND OnlyOne(p1, p2);
+        - IF p4+p5<=5 AND p4*p5>=4 THEN p2=='this is the only invalid dependency';
+  /conflictiveParameterNames:
+    get:
+      parameters:
+        - name: "type"
+          in: "query"
+          required: false
+          type: "boolean"
+        - name: "constraint"
+          in: "query"
+          required: true
+          type: "boolean"
+        - name: "with_underscore"
+          in: "query"
+          required: false
+          type: "boolean"
+        - name: "Accept-Language"
+          in: "query"
+          required: true
+          type: "boolean"
+        - name: "index:set"
+          in: "query"
+          required: false
+          type: "boolean"
+        - name: "something[one]"
+          in: "query"
+          required: true
+          type: "string"
+        - name: "something[two]"
+          in: "query"
+          required: false
+          type: "string"
+        - name: "b.b"
+          in: "query"
+          required: true
+          type: "string"
+        - name: "p9"
+          in: "query"
+          required: false
+          type: "string"
+        - name: "p10"
+          in: "query"
+          required: true
+          type: "string"
+      responses:
+        default:
+          description: "Default"
+      x-dependencies:
+        - IF constraint THEN [Accept-Language]; // Useless/redundant dependency, but valid
+        - IF type THEN (with_underscore==true OR (NOT with_underscore)) AND NOT [something[two]] AND p9=='fixed string';
+        - Or(type, with_underscore, [index:set] AND [something[two]], p9 AND type);
+        - NOT Or(type==true, constraint==true, with_underscore==false);
+        - NOT AllOrNone([something[two]] AND p9, b.b=='something', [index:set] AND p10=='example');
+        - AllOrNone(type, [index:set]);
+        - NOT ZeroOrOne(type, [index:set], [something[two]], constraint==false, [something[one]]=='example');
+        - ZeroOrOne(type, with_underscore);
+        - AllOrNone([something[one]]!=b.b, b.b==p10);
+        - ZeroOrOne(OnlyOne([index:set]==false, [Accept-Language]==true), OnlyOne([Accept-Language], [Accept-Language]==true), OnlyOne([Accept-Language]==true, [something[one]]));
+  /conflictiveParameterNames2:
+    get:
+      parameters:
+        - name: "type"
+          in: "query"
+          required: false
+          type: "boolean"
+        - name: "constraint"
+          in: "query"
+          required: true
+          type: "boolean"
+        - name: "with_underscore"
+          in: "query"
+          required: false
+          type: "boolean"
+        - name: "Accept-Language"
+          in: "query"
+          required: true
+          type: "boolean"
+        - name: "index:set"
+          in: "query"
+          required: false
+          type: "boolean"
+        - name: "something[one]"
+          in: "query"
+          required: true
+          type: "string"
+        - name: "something[two]"
+          in: "query"
+          required: false
+          type: "string"
+        - name: "b.b"
+          in: "query"
+          required: true
+          type: "string"
+        - name: "c.c"
+          in: "query"
+          required: false
+          type: "string"
+        - name: "p10"
+          in: "query"
+          required: true
+          type: "string"
+      responses:
+        default:
+          description: "Default"
+      x-dependencies:
+        - IF type THEN (with_underscore==true OR (NOT with_underscore)) AND NOT [something[two]];
+        - AllOrNone([something[one]]!=b.b, b.b==p10);
