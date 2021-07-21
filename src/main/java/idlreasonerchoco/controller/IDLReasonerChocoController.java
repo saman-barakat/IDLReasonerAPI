@@ -19,12 +19,19 @@ public class IDLReasonerChocoController {
     private static final String OPERATION_PATH = "operationPath";
     private static final String OPERATION_TYPE = "operationType";
     private static final String PARAMETER = "parameter";
+    private static final String NO_VALID_REQUEST_MSG = "There is no valid request for this operation";
+    private static final String NO_INVALID_REQUEST_MSG = "There is no invalid request for this operation";
 
     @PostMapping("/generateRandomValidRequest")
     public ResponseEntity<Map<String, String>> generateRandomValidRequest(@RequestBody String oasSpec, @RequestParam(name = OPERATION_PATH) String operationPath,
                                                                           @RequestParam(name = OPERATION_TYPE) String operationType) throws IDLException {
         Analyzer analyzer = new OASAnalyzer("oas", oasSpec, operationPath, operationType, true);
         Map<String, String> response = analyzer.getRandomValidRequest();
+
+        if (response == null) {
+            throw new IDLException(NO_VALID_REQUEST_MSG);
+        }
+
         return ResponseEntity.ok(response);
     }
 
@@ -35,6 +42,11 @@ public class IDLReasonerChocoController {
         }
         Analyzer analyzer = new OASAnalyzer("oas", oasSpecUrl, operationPath, operationType, false);
         Map<String, String> response = analyzer.getRandomValidRequest();
+
+        if (response == null) {
+            throw new IDLException(NO_VALID_REQUEST_MSG);
+        }
+
         return ResponseEntity.ok(response);
     }
 
@@ -43,6 +55,11 @@ public class IDLReasonerChocoController {
                                                                             @RequestParam(name = OPERATION_TYPE) String operationType) throws IDLException {
         Analyzer analyzer = new OASAnalyzer("oas", oasSpec, operationPath, operationType, true);
         Map<String, String> response = analyzer.getRandomInvalidRequest();
+
+        if (response == null) {
+            throw new IDLException(NO_INVALID_REQUEST_MSG);
+        }
+
         return ResponseEntity.ok(response);
     }
 
@@ -54,6 +71,11 @@ public class IDLReasonerChocoController {
         }
         Analyzer analyzer = new OASAnalyzer("oas", oasSpecUrl, operationPath, operationType, false);
         Map<String, String> response = analyzer.getRandomInvalidRequest();
+
+        if (response == null) {
+            throw new IDLException(NO_INVALID_REQUEST_MSG);
+        }
+
         return ResponseEntity.ok(response);
     }
 
@@ -70,6 +92,9 @@ public class IDLReasonerChocoController {
 
     @GetMapping("/isValidRequest")
     public ResponseEntity<OperationAnalysisResponse> isValidRequestGet(@RequestParam Map<String, String> requestParams) throws IDLException {
+        if (!requestParams.containsKey(SPEC_URL) || isUrlInvalid(requestParams.get(SPEC_URL))) {
+            return ResponseEntity.badRequest().build();
+        }
         OperationAnalysisResponse response = isValidRequest(null, requestParams, false, false);
 
         if (response == null) {
@@ -155,7 +180,7 @@ public class IDLReasonerChocoController {
     public ResponseEntity<OperationAnalysisResponse> isFalseOptional(@RequestBody String oasSpec, @RequestParam(name = OPERATION_PATH) String operationPath,
                                                                      @RequestParam(name = OPERATION_TYPE) String operationType,
                                                                      @RequestParam(name = PARAMETER) String parameter) throws IDLException {
-        Analyzer analyzer = new OASAnalyzer("oas", oasSpec, operationPath, operationType, false);
+        Analyzer analyzer = new OASAnalyzer("oas", oasSpec, operationPath, operationType, true);
         OperationAnalysisResponse response = new OperationAnalysisResponse();
         response.setFalseOptional(analyzer.isFalseOptional(parameter));
         return ResponseEntity.ok(response);
@@ -178,7 +203,7 @@ public class IDLReasonerChocoController {
     @PostMapping("/isValidSpecification")
     public ResponseEntity<OperationAnalysisResponse> isValidIDL(@RequestBody String oasSpec, @RequestParam(name = OPERATION_PATH) String operationPath,
                                                                 @RequestParam(name = OPERATION_TYPE) String operationType) throws IDLException {
-        Analyzer analyzer = new OASAnalyzer("oas", oasSpec, operationPath, operationType, false);
+        Analyzer analyzer = new OASAnalyzer("oas", oasSpec, operationPath, operationType, true);
         OperationAnalysisResponse response = new OperationAnalysisResponse();
         response.setValid(analyzer.isValidIDL());
         return ResponseEntity.ok(response);
@@ -198,8 +223,7 @@ public class IDLReasonerChocoController {
     }
 
     private OperationAnalysisResponse isValidRequest(String oasSpec, Map<String, String> requestParams, boolean specAsString, boolean partial) throws IDLException {
-        if ((!specAsString && !requestParams.containsKey(SPEC_URL)) || !requestParams.containsKey(OPERATION_PATH) || !requestParams.containsKey(OPERATION_TYPE)
-                || requestParams.keySet().stream().noneMatch(x -> x.startsWith("request["))) {
+        if ((!specAsString && !requestParams.containsKey(SPEC_URL)) || !requestParams.containsKey(OPERATION_PATH) || !requestParams.containsKey(OPERATION_TYPE)) {
             return null;
         }
 
