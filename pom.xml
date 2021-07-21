@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>idlreasonerchoco</groupId>
 	<artifactId>IDLReasoner-choco-api</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>IDLReasoner-choco-api</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -39,7 +39,7 @@
 		<dependency>
 			<groupId>es.us.isa</groupId>
 			<artifactId>IDLReasoner-choco</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
 
