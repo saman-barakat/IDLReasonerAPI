@@ -1,6 +1,6 @@
 package idlreasonerchoco.advice;
 
-import idlreasonerchoco.configuration.model.IDLException;
+import idlreasonerchoco.configuration.IDLException;
 import idlreasonerchoco.model.ErrorResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

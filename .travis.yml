@@ -1,0 +1,14 @@
+dist: xenial
+language: java
+
+addons:
+  sonarcloud:
+    organization: "josferde5"
+    token:
+      secure: dzQ2JPhD7Pv9jI5w+pAt7iBIuI+0mDK7/9P8SNc1Xjn08oJ/5gx/q0s6jWtPOGd4m8nznaK2/9Jrw+KkrTHPH8oLSRdKeohBGqTK2FqhNb/On4yvq34vHc/DBFo9eHiU8/0J2hpNFZHk5F8YBgkeYdo/2FZvgm/U56KnFzSc+w5jKV4JZ0dWaK+49Nt4HchRtJ/TM3ZjQEVRmbl0CHll0s9QUhMrnsliKjXYpJ0diVUePZdPb4fdcu+5yPJD/uPQcP5kapcdfVxuwa3sAdhvYv4HhGOUsdyzBTgSremLoVaUxsEQtRAYg6B1uOsEwToIjxGeLe44IPTHwPVot5HcJco+/l90mViDnh4r8x1gQX0MhTkfIDFtDfDd9l7+TA8eGzsxaGveLhz299lH97O1J4Bf/DLrQjLWN1IcfofIHHrUT1akdFjmRMwdhaG5FWVMtN3YanIBpBOACSKL4unkHA5A4PpTPwiXvpQjM579fZH7Xs2QLRLAUE1F/awsfCgDXTf3NCNo8NKzCJU612N/ZmMB/urOaP+ebiefMorueo8w/2QOnShSNVIIW33WrYxo2XCYbplNzWM/p0zFT+sZBZJY9BUmnwufddtTV17khS31+y69KwYxz7G/gFrB9bLvaphX/kqjezM8ej7g/gqqrqabJPTPD9hmVIG0XmcVNMw=
+before_install:
+  - chmod +x scripts/install_dependencies.sh
+install:
+  - ./scripts/install_dependencies.sh
+script:
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=josferde5_IDLReasoner-choco-API

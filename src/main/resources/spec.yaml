@@ -1,0 +1,647 @@
+openapi: 3.0.1
+info:
+  title: IDLReasoner-choco API
+  description: An API for analyzing IDL specifications
+  version: 0.0.1
+servers:
+  - url: 'http://localhost:8080/api'
+    description: Sample server
+paths:
+  /isValidSpecification:
+    get:
+      summary: Checks if the IDL specification is correct
+      tags:
+        - Check valid specification
+      operationId: isValidIDLGet
+      parameters:
+        - name: specificationUrl
+          in: query
+          description: The URL that provides the API specification
+          required: true
+          schema:
+            type: string
+            format: uri
+        - name: operationPath
+          in: query
+          description: The path of the operation to be checked
+          required: true
+          schema:
+            type: string
+        - name: operationType
+          in: query
+          description: The HTTP method of the operation to be checked
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidResponse'
+    post:
+      summary: Checks if the IDL specification is correct
+      tags:
+        - Check valid specification
+      operationId: isValidIDL
+      parameters:
+        - name: operationPath
+          in: query
+          description: The path of the operation to be checked
+          required: true
+          schema:
+            type: string
+        - name: operationType
+          in: query
+          description: The HTTP method of the operation to be checked
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: An OpenAPI 3.0 or Swagger 2.0 specification
+        content:
+          application/json:
+            schema:
+              type: object
+          application/x-yaml:
+            schema:
+              type: object
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidResponse'
+  /isValidRequest:
+    get:
+      summary: Checks if a request is valid
+      description: Checks if a request satisfies all the dependencies of an IDL specification
+      tags:
+        - Check valid request
+      operationId: isValidRequestGet
+      parameters:
+        - name: specificationUrl
+          in: query
+          description: The URL that provides the API specification
+          required: true
+          schema:
+            type: string
+        - name: operationPath
+          in: query
+          description: The operation's path of the request to be checked
+          required: true
+          schema:
+            type: string
+        - name: operationType
+          in: query
+          description: The operation's HTTP method of the request to be checked
+          required: true
+          schema:
+            type: string
+        - name: request
+          in: query
+          description: The request to be checked
+          required: true
+          style: deepObject
+          explode: true
+          allowReserved: false
+          schema:
+            type: object
+            additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidResponse'
+    post:
+      summary: Checks if a request is valid
+      description: Checks if a request satisfies all the dependencies of an IDL specification
+      tags:
+        - Check valid request
+      operationId: isValidRequest
+      parameters:
+        - name: operationPath
+          in: query
+          description: The operation's path of the request to be checked
+          required: true
+          schema:
+            type: string
+        - name: operationType
+          in: query
+          description: The operation's HTTP method of the request to be checked
+          required: true
+          schema:
+            type: string
+        - name: request
+          in: query
+          description: The request to be checked
+          required: true
+          style: deepObject
+          explode: true
+          allowReserved: false
+          schema:
+            type: object
+            additionalProperties: true
+      requestBody:
+        description: An OpenAPI 3.0 or Swagger 2.0 specification
+        content:
+          application/json:
+            schema:
+              type: object
+          application/x-yaml:
+            schema:
+              type: object
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidResponse'
+  /isValidPartialRequest:
+    get:
+      summary: Checks if a request is partially valid
+      description: Checks if the request can be extended with new parameters to become a valid one
+      tags:
+        - Check valid partial request
+      operationId: isValidPartialRequestGet
+      parameters:
+        - name: specificationUrl
+          in: query
+          description: The URL that provides the API specification
+          required: true
+          schema:
+            type: string
+        - name: operationPath
+          in: query
+          description: The operation's path of the request to be checked
+          required: true
+          schema:
+            type: string
+        - name: operationType
+          in: query
+          description: The operation's HTTP method of the request to be checked
+          required: true
+          schema:
+            type: string
+        - name: request
+          in: query
+          description: The request to be checked
+          required: true
+          style: deepObject
+          explode: true
+          allowReserved: false
+          schema:
+            type: object
+            additionalProperties: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidResponse'
+    post:
+      summary: Checks if a request is partially valid
+      description: Checks if the request can be extended with new parameters to become a valid one
+      tags:
+        - Check valid partial request
+      operationId: isValidPartialRequest
+      parameters:
+        - name: operationPath
+          in: query
+          description: The operation's path of the request to be checked
+          required: true
+          schema:
+            type: string
+        - name: operationType
+          in: query
+          description: The operation's HTTP method of the request to be checked
+          required: true
+          schema:
+            type: string
+        - name: request
+          in: query
+          description: The request to be checked
+          required: true
+          style: deepObject
+          explode: true
+          allowReserved: false
+          schema:
+            type: object
+            additionalProperties: true
+      requestBody:
+        description: An OpenAPI 3.0 or Swagger 2.0 specification
+        content:
+          application/json:
+            schema:
+              type: object
+          application/x-yaml:
+            schema:
+              type: object
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidResponse'
+  /isFalseOptional:
+    get:
+      summary: Checks if a parameter is required despite being declared as optional
+      tags:
+        - Check false optional
+      operationId: isFalseOptionalGet
+      parameters:
+        - name: specificationUrl
+          in: query
+          description: The URL that provides the API specification
+          required: true
+          schema:
+            type: string
+        - name: operationPath
+          in: query
+          description: The path of the operation that contains the parameter to be checked
+          required: true
+          schema:
+            type: string
+        - name: operationType
+          in: query
+          description: The HTTP method of the operation that contains the parameter to be checked
+          required: true
+          schema:
+            type: string
+        - name: parameter
+          in: query
+          description: The name of the parameter to be checked
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FalseOptionalResponse'
+    post:
+      summary: Checks if a parameter is required despite being declared as optional
+      tags:
+        - Check false optional
+      operationId: isFalseOptional
+      parameters:
+        - name: operationPath
+          in: query
+          description: The path of the operation that contains the parameter to be checked
+          required: true
+          schema:
+            type: string
+        - name: operationType
+          in: query
+          description: The HTTP method of the operation that contains the parameter to be checked
+          required: true
+          schema:
+            type: string
+        - name: parameter
+          in: query
+          description: The name of the parameter to be checked
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: An OpenAPI 3.0 or Swagger 2.0 specification
+        content:
+          application/json:
+            schema:
+              type: object
+          application/x-yaml:
+            schema:
+              type: object
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FalseOptionalResponse'
+  /isDeadParameter:
+    get:
+      summary: Checks if a parameter cannot be used due to the IDL specification
+      tags:
+        - Check dead parameter
+      operationId: isDeadParameterGet
+      parameters:
+        - name: specificationUrl
+          in: query
+          description: The URL that provides the API specification
+          required: true
+          schema:
+            type: string
+        - name: operationPath
+          in: query
+          description: The path of the operation that contains the parameter to be checked
+          required: true
+          schema:
+            type: string
+        - name: operationType
+          in: query
+          description: The HTTP method of the operation that contains the parameter to be checked
+          required: true
+          schema:
+            type: string
+        - name: parameter
+          in: query
+          description: The name of the parameter to be checked
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeadParameterResponse'
+    post:
+      summary: Checks if a parameter cannot be used due to the IDL specification
+      tags:
+        - Check dead parameter
+      operationId: isDeadParameter
+      parameters:
+        - name: operationPath
+          in: query
+          description: The path of the operation that contains the parameter to be checked
+          required: true
+          schema:
+            type: string
+        - name: operationType
+          in: query
+          description: The HTTP method of the operation that contains the parameter to be checked
+          required: true
+          schema:
+            type: string
+        - name: parameter
+          in: query
+          description: The name of the parameter to be checked
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: An OpenAPI 3.0 or Swagger 2.0 specification
+        content:
+          application/json:
+            schema:
+              type: object
+          application/x-yaml:
+            schema:
+              type: object
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeadParameterResponse'
+  /isConsistent:
+    get:
+      summary: Checks if a specification is consistent
+      tags:
+        - Check specification consistency
+      operationId: isConsistentGet
+      parameters:
+        - name: specificationUrl
+          in: query
+          description: The URL that provides the API specification
+          required: true
+          schema:
+            type: string
+            format: uri
+        - name: operationPath
+          in: query
+          description: The path of the operation to be checked
+          required: true
+          schema:
+            type: string
+        - name: operationType
+          in: query
+          description: The HTTP method of the operation to be checked
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConsistentResponse'
+    post:
+      summary: Checks if a specification is consistent
+      tags:
+        - Check specification consistency
+      operationId: isConsistent
+      parameters:
+        - name: operationPath
+          in: query
+          description: The path of the operation to be checked
+          required: true
+          schema:
+            type: string
+        - name: operationType
+          in: query
+          description: The HTTP method of the operation to be checked
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: An OpenAPI 3.0 or Swagger 2.0 specification
+        content:
+          application/json:
+            schema:
+              type: object
+          application/x-yaml:
+            schema:
+              type: object
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConsistentResponse'
+  /generateRandomValidRequest:
+    get:
+      summary: Produces a request that complies with the IDL specification
+      tags:
+        - Generate random valid request
+      operationId: generateRandomValidRequestGet
+      parameters:
+        - name: specificationUrl
+          in: query
+          description: The URL that provides the API specification
+          required: true
+          schema:
+            type: string
+            format: uri
+        - name: operationPath
+          in: query
+          description: The path of the operation
+          required: true
+          schema:
+            type: string
+        - name: operationType
+          in: query
+          description: The HTTP method of the operation
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+    post:
+      summary: Produces a request that complies with the IDL specification
+      tags:
+        - Generate random valid request
+      operationId: generateRandomValidRequest
+      parameters:
+        - name: operationPath
+          in: query
+          description: The path of the operation
+          required: true
+          schema:
+            type: string
+        - name: operationType
+          in: query
+          description: The HTTP method of the operation
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: An OpenAPI 3.0 or Swagger 2.0 specification
+        content:
+          application/json:
+            schema:
+              type: object
+          application/x-yaml:
+            schema:
+              type: object
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+  /generateRandomInvalidRequest:
+    get:
+      summary: Produces a request that does not comply with the IDL specification
+      tags:
+        - Generate random invalid request
+      operationId: generateRandomInvalidRequestGet
+      parameters:
+        - name: specificationUrl
+          in: query
+          description: The URL that provides the API specification
+          required: true
+          schema:
+            type: string
+            format: uri
+        - name: operationPath
+          in: query
+          description: The path of the operation
+          required: true
+          schema:
+            type: string
+        - name: operationType
+          in: query
+          description: The HTTP method of the operation
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+    post:
+      summary: Produces a request that does not comply with the IDL specification
+      tags:
+        - Generate random invalid request
+      operationId: generateRandomInvalidRequest
+      parameters:
+        - name: operationPath
+          in: query
+          description: The path of the operation
+          required: true
+          schema:
+            type: string
+        - name: operationType
+          in: query
+          description: The HTTP method of the operation
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: An OpenAPI 3.0 or Swagger 2.0 specification
+        content:
+          application/json:
+            schema:
+              type: object
+          application/x-yaml:
+            schema:
+              type: object
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+components:
+  schemas:
+    ValidResponse:
+      type: object
+      properties:
+        valid:
+          type: boolean
+    DeadParameterResponse:
+      type: object
+      properties:
+        deadParameter:
+          type: boolean
+    ConsistentResponse:
+      type: object
+      properties:
+        consistent:
+          type: boolean
+    FalseOptionalResponse:
+      type: object
+      properties:
+        falseOptional:
+          type: boolean
