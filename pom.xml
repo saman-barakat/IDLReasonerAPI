@@ -12,7 +12,28 @@
 	<artifactId>IDLReasoner-choco-api</artifactId>
 	<version>1.0.0</version>
 	<name>IDLReasoner-choco-api</name>
-	<description>Demo project for Spring Boot</description>
+	<description>An API for analyzing IDL specifications</description>
+
+	<developers>
+		<developer>
+			<id>jfdelarosa</id>
+			<name>José Ramón Fernández de la Rosa</name>
+			<email>jfdelarosa@us.es</email>
+			<organization>University of Seville</organization>
+			<organizationUrl>http://www.us.es</organizationUrl>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>danimilles</id>
+			<name>Daniel Sánchez Baleyrón</name>
+			<email>dansanbal@alum.us.es</email>
+			<organization>University of Seville</organization>
+			<organizationUrl>http://www.us.es</organizationUrl>
+		</developer>
+	</developers>
+
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
