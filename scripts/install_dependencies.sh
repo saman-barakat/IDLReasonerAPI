@@ -1,1 +1,1 @@
-mvn install:install-file -Dfile=lib/IDLReasoner-choco.jar -DgroupId=es.us.isa -DartifactId=IDLReasoner-choco -Dversion=1.0.0 -Dpackaging=jar
+mvn install:install-file -Dfile=lib/IDLReasoner-choco-1.0.0.jar -DgroupId=es.us.isa -DartifactId=IDLReasoner-choco -Dversion=1.0.0 -Dpackaging=jar
