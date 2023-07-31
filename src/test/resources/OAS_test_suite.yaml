@@ -379,6 +379,30 @@ paths:
       responses:
         default:
           description: "Default"
+
+  /oneDependencyEnumAndIntParams:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: false
+          type: "boolean"
+        - name: "p2"
+          in: "query"
+          required: false
+          type: "string"
+          enum:
+            - "value1"
+            - "value2"
+        - name: "p3"
+          in: "query"
+          required: true
+          type: "integer"
+      x-dependencies:
+        - OnlyOne(p1, p2);
+      responses:
+        default:
+          description: "Default"
   /oneDependencyArithRelEnumParams:
     get:
       parameters:
@@ -1192,3 +1216,39 @@ paths:
       x-dependencies:
         - IF type THEN (with_underscore==true OR (NOT with_underscore)) AND NOT [something[two]];
         - AllOrNone([something[one]]!=b.b, b.b==p10);
+  /numberAndIntegerParams:
+    get:
+      parameters:
+        - name: "p1"
+          in: "query"
+          required: true
+          type: "boolean"
+        - name: "p2"
+          in: "query"
+          required: true
+          type: "integer"
+        - name: "p3"
+          in: "query"
+          required: true
+          type: "integer"
+          enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+        - name: "p4"
+          in: "query"
+          required: true
+          type: "number"
+          format: "double"
+        - name: "p5"
+          in: "query"
+          required: false
+          type: "string"
+      x-dependencies:
+        - IF p5 THEN NOT p2==3;
+        - IF p1==true THEN NOT p4==10.7;
+      responses:
+        default:
+          description: "Default"

@@ -8,10 +8,10 @@
 		<version>2.5.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>idlreasonerchoco</groupId>
-	<artifactId>IDLReasoner-choco-api</artifactId>
+	<groupId>idlreasonerapi</groupId>
+	<artifactId>IDLReasonerAPI</artifactId>
 	<version>1.0.0</version>
-	<name>IDLReasoner-choco-api</name>
+	<name>IDLReasonerAPI</name>
 	<description>An API for analyzing IDL specifications</description>
 
 	<developers>
@@ -59,7 +59,7 @@
 		</dependency>
 		<dependency>
 			<groupId>es.us.isa</groupId>
-			<artifactId>IDLReasoner-choco</artifactId>
+			<artifactId>IDLReasoner</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 		<dependency>
@@ -73,6 +73,12 @@
             <version>5.7.1</version>
             <scope>test</scope>
         </dependency>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.15.2</version>
+		</dependency>
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -84,7 +90,7 @@
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.6.4</version>
+			<version>1.6.8</version>
 		</dependency>
 	</dependencies>
 
