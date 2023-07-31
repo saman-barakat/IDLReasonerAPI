@@ -2,6 +2,9 @@ package idlreasonerchoco.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.util.List;
+import java.util.Map;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OperationAnalysisResponse {
 
@@ -9,6 +12,8 @@ public class OperationAnalysisResponse {
     private Boolean deadParameter;
     private Boolean consistent;
     private Boolean falseOptional;
+
+    private Map<String, Map<String, List<String>>> analysisResult;
 
     public Boolean getValid() {
         return valid;
@@ -40,5 +45,13 @@ public class OperationAnalysisResponse {
 
     public void setFalseOptional(Boolean falseOptional) {
         this.falseOptional = falseOptional;
+    }
+
+    public Map<String, Map<String, List<String>>> getAnalysisResult() {
+        return analysisResult;
+    }
+
+    public void setAnalysisResult(Map<String, Map<String, List<String>>> analysisResult) {
+        this.analysisResult = analysisResult;
     }
 }
