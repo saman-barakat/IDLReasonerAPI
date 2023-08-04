@@ -378,8 +378,6 @@ public class IDLReasonerChocoController {
             @Parameter(description = "Operation type", example = "GET", required = true) @RequestParam(name = OPERATION_TYPE) String operationType)
             throws IDLException {
 
-        System.out.println("POST - Operation Analysis Called");
-
         Analyzer analyzer = new OASAnalyzer(oasSpec, operationPath, operationType, true);
 
         OperationAnalysisResponse response = new OperationAnalysisResponse();
@@ -393,8 +391,6 @@ public class IDLReasonerChocoController {
             response.setValid(false);
             response.setAnalysisResult(analyzer.getExplanationMessage(null).replaceAll("\n", "<br>"));
         }
-
-        System.out.println("response: " + response.getAnalysisResult());
         return ResponseEntity.ok(response);
     }
 
@@ -405,12 +401,11 @@ public class IDLReasonerChocoController {
             @Parameter(description = "Operation path", example = "/oneDependencyRequires", required = true) @RequestParam(name = OPERATION_PATH) String operationPath,
             @Parameter(description = "Operation type", example = "GET", required = true) @RequestParam(name = OPERATION_TYPE) String operationType)
             throws IDLException {
-        System.out.println("oasSpecUrl: " + oasSpecUrl);
+
         if (isUrlInvalid(oasSpecUrl)) {
             return ResponseEntity.badRequest().build();
         }
 
-        System.out.println("GET - Operation Analysis Called");
         Analyzer analyzer = new OASAnalyzer(oasSpecUrl, operationPath, operationType);
         OperationAnalysisResponse response = new OperationAnalysisResponse();
 
@@ -423,8 +418,6 @@ public class IDLReasonerChocoController {
             response.setValid(false);
             response.setAnalysisResult(analyzer.getExplanationMessage(null));
         }
-
-        System.out.println("response: " + response.getAnalysisResult());
 
         return ResponseEntity.ok(response);
     }
