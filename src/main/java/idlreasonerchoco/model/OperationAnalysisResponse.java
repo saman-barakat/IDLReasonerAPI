@@ -13,7 +13,7 @@ public class OperationAnalysisResponse {
     private Boolean consistent;
     private Boolean falseOptional;
 
-    private Map<String, Map<String, List<String>>> analysisResult;
+    private String analysisResult;
 
     public Boolean getValid() {
         return valid;
@@ -47,11 +47,11 @@ public class OperationAnalysisResponse {
         this.falseOptional = falseOptional;
     }
 
-    public Map<String, Map<String, List<String>>> getAnalysisResult() {
+    public String getAnalysisResult() {
         return analysisResult;
     }
 
-    public void setAnalysisResult(Map<String, Map<String, List<String>>> analysisResult) {
+    public void setAnalysisResult(String analysisResult) {
         this.analysisResult = analysisResult;
     }
 }
