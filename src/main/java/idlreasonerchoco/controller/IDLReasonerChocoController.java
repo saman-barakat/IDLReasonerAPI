@@ -32,7 +32,7 @@ import static com.fasterxml.jackson.databind.cfg.CoercionInputShape.EmptyString;
 
 //import static jdk.internal.logger.DefaultLoggerFinder.SharedLoggers.system;
 
-//@CrossOrigin
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 @Tag(name = "IDLReasoner API", description = "IDLReasoner API")
