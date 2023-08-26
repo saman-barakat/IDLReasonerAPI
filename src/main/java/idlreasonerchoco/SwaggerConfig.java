@@ -21,7 +21,7 @@ public class SwaggerConfig {
 	              .license(new License().name("GPL-3.0")))
 	              .externalDocs(new ExternalDocumentation()
 	              .description("IDReasoner API Documentation")
-	              .url("http://localhost:8085/api-docs")
+	              .url("http://localhost:8080/api-docs")
 				  );
 	  }
 }
