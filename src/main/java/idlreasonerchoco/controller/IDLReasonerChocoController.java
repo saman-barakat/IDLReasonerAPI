@@ -90,6 +90,12 @@ public class IDLReasonerChocoController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/getTest")
+    public ResponseEntity<String> getTest() {
+
+        return ResponseEntity.ok("Test");
+    }
+
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful operation"),
             @ApiResponse(responseCode = "400", description = "Failure operation")
