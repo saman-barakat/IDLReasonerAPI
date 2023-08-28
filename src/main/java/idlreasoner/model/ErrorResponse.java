@@ -1,4 +1,4 @@
-package idlreasonerchoco.model;
+package idlreasoner.model;
 
 public class ErrorResponse {
 

@@ -1,7 +1,7 @@
-package idlreasonerchoco.advice;
+package idlreasoner.advice;
 
 import es.us.isa.idlreasonerchoco.configuration.IDLException;
-import idlreasonerchoco.model.ErrorResponse;
+import idlreasoner.model.ErrorResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

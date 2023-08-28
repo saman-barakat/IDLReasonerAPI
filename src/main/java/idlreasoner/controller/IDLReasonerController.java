@@ -1,25 +1,18 @@
-package idlreasonerchoco.controller;
+package idlreasoner.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import es.us.isa.idlreasonerchoco.analyzer.Analyzer;
 import es.us.isa.idlreasonerchoco.analyzer.OASAnalyzer;
 import es.us.isa.idlreasonerchoco.configuration.IDLException;
-import idlreasonerchoco.model.OperationAnalysisResponse;
+import idlreasoner.model.OperationAnalysisResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.parser.OpenAPIV3Parser;
-import io.swagger.v3.parser.core.models.ParseOptions;
-import io.swagger.v3.parser.util.ResolverFully;
 import org.apache.commons.validator.routines.UrlValidator;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,15 +21,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.fasterxml.jackson.databind.cfg.CoercionInputShape.EmptyString;
-
 //import static jdk.internal.logger.DefaultLoggerFinder.SharedLoggers.system;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/api")
 @Tag(name = "IDLReasoner API", description = "IDLReasoner API")
-public class IDLReasonerChocoController {
+public class IDLReasonerController {
 
     private static final String SPEC_URL = "specificationUrl";
     private static final String OPERATION_PATH = "operationPath";
@@ -89,12 +80,6 @@ public class IDLReasonerChocoController {
         }
 
         return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("/getTest")
-    public ResponseEntity<String> getTest() {
-
-        return ResponseEntity.ok("Test");
     }
 
     @ApiResponses(value = {
@@ -284,11 +269,6 @@ public class IDLReasonerChocoController {
             return ResponseEntity.badRequest().build();
         }
 
-        System.out.println(oasSpecUrl);
-        System.out.println(operationPath);
-        System.out.println(operationType);
-        System.out.println(parameter);
-
         Analyzer analyzer = new OASAnalyzer(oasSpecUrl, operationPath, operationType);
         OperationAnalysisResponse response = new OperationAnalysisResponse();
         response.setDeadParameter(analyzer.isDeadParameter(parameter));
@@ -366,10 +346,6 @@ public class IDLReasonerChocoController {
         if(isUrlInvalid(oasSpecUrl)) {
             return ResponseEntity.badRequest().build();
         }
-
-        System.out.println("URL: " + oasSpecUrl);
-        System.out.println("Operation path: " + operationPath);
-        System.out.println("Operation type: " + operationType);
 
         Analyzer analyzer = new OASAnalyzer(oasSpecUrl, operationPath, operationType, false);
         OperationAnalysisResponse response = new OperationAnalysisResponse();

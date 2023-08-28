@@ -1,4 +1,4 @@
-package idlreasonerchoco.controller;
+package idlreasoner.controller;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
-class IDLReasonerChocoControllerTests {
+class IDLReasonerControllerTests {
 
     private static final String SPEC_URL = "specificationUrl";
     private static final String OPERATION_PATH = "operationPath";

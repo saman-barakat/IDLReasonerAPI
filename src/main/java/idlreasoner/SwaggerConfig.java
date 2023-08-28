@@ -1,4 +1,4 @@
-package idlreasonerchoco;
+package idlreasoner;
 
 import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -21,7 +21,6 @@ public class SwaggerConfig {
 	              .license(new License().name("GPL-3.0")))
 	              .externalDocs(new ExternalDocumentation()
 	              .description("IDReasoner API Documentation")
-	              .url("http://localhost:8080/api-docs")
 				  );
 	  }
 }

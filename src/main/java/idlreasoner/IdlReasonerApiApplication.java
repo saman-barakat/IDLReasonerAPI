@@ -1,13 +1,13 @@
-package idlreasonerchoco;
+package idlreasoner;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class IdlReasonerChocoApiApplication {
+public class IdlReasonerApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(IdlReasonerChocoApiApplication.class, args);
+		SpringApplication.run(IdlReasonerApiApplication.class, args);
 	}
 
 }
