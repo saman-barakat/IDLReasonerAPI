@@ -380,7 +380,7 @@ public class IDLReasonerController {
     @GetMapping("/operationAnalysis")
     @Operation(summary = "Analyze an operation", description = "Returns analysis result of an operation.")
     public ResponseEntity<OperationAnalysisResponse> operationAnalysisGet(
-            @Parameter(description = "Open API specification URL", example = "https://raw.githubusercontent.com/saman-barakat/IDLAnalyzer/master/src/test/resources/OAS_test_suite.yaml", required = true) @RequestParam(name = SPEC_URL) String oasSpecUrl,
+            @Parameter(description = "Open API specification URL", example = "https://raw.githubusercontent.com/isa-group/IDLReasonerChoco/master/src/test/resources/OAS_test_suite_orig.yaml", required = true) @RequestParam(name = SPEC_URL) String oasSpecUrl,
             @Parameter(description = "Operation path", example = "/oneDependencyRequires", required = true) @RequestParam(name = OPERATION_PATH) String operationPath,
             @Parameter(description = "Operation type", example = "GET", required = true) @RequestParam(name = OPERATION_TYPE) String operationType)
             throws IDLException {
