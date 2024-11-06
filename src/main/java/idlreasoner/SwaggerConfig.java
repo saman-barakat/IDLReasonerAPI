@@ -18,6 +18,7 @@ public class SwaggerConfig {
 	  @Bean
 	  public OpenAPI springShopOpenAPI() {
 	      return new OpenAPI()
+				  .addServersItem(new io.swagger.v3.oas.models.servers.Server().url("http://idl.us.es"))
 	              .info(new Info()
 	              .title("IDLReasoner API")
 	              .contact(new Contact().name("Saman A. Barakat").email("saman.barakat@gmail.com"))
